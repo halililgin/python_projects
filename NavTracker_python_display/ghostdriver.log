@@ -1,0 +1,13 @@
+<<<<<<< HEAD
+[INFO  - 2017-05-24T15:56:36.013Z] GhostDriver - Main - running on port 51032
+[INFO  - 2017-05-24T15:56:39.415Z] Session [92bc7e10-4099-11e7-9977-6b22b912ac77] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-05-24T15:56:39.415Z] Session [92bc7e10-4099-11e7-9977-6b22b912ac77] - page.customHeaders:  - {}
+[INFO  - 2017-05-24T15:56:39.416Z] Session [92bc7e10-4099-11e7-9977-6b22b912ac77] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-8.1-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-05-24T15:56:39.416Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 92bc7e10-4099-11e7-9977-6b22b912ac77
+=======
+[INFO  - 2017-05-25T04:22:34.869Z] GhostDriver - Main - running on port 1854
+[INFO  - 2017-05-25T04:22:36.367Z] Session [c7f367c0-4101-11e7-b389-13a2d2ff74f2] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-05-25T04:22:36.367Z] Session [c7f367c0-4101-11e7-b389-13a2d2ff74f2] - page.customHeaders:  - {}
+[INFO  - 2017-05-25T04:22:36.368Z] Session [c7f367c0-4101-11e7-b389-13a2d2ff74f2] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-7-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-05-25T04:22:36.368Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: c7f367c0-4101-11e7-b389-13a2d2ff74f2
+>>>>>>> 382610117fbd045922fa972968c13dfd3ebaccfe
