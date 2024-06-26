@@ -9,8 +9,6 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret-key-goes-here'
 
-# CREATE DATABASE
-
 
 class Base(DeclarativeBase):
     pass
@@ -29,7 +27,6 @@ def load_user(user_id):
     return db.get_or_404(User, user_id)
 
 
-# CREATE TABLE
 class User(UserMixin, db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(100), unique=True)
@@ -53,10 +50,8 @@ def register():
         email = request.form.get('email')
         result = db.session.execute(db.select(User).where(User.email == email))
 
-        # Note, email in db is unique so will only have one result.
         user = result.scalar()
         if user:
-            # User already exists
             flash("You've already signed up with that email, log in instead!")
             return redirect(url_for('login'))
 
@@ -86,7 +81,6 @@ def login():
 
         result = db.session.execute(db.select(User).where(User.email == email))
         user = result.scalar()
-        # Email doesn't exist or password incorrect.
         if not user:
             flash("That email does not exist, please try again.")
             return redirect(url_for('login'))
@@ -118,7 +112,6 @@ def logout():
 @login_required
 def download():
 
-    # return send_from_directory('/static/files/', 'cheat_sheet.pdf')
     return send_from_directory('static', path="files/cheat_sheet.pdf")
 
 
