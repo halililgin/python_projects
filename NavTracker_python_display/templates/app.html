@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Python Flask Bucket List App</title>
+
+
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="loader.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+    <script charset="utf-8" type="text/javascript">
+        var x, label, nav;
+        $('document').ready(function() {
+            $("#datepicker1").datepicker({
+                dateFormat: 'dd-M-yy'
+            });
+            $("#datepicker2").datepicker({
+                dateFormat: 'dd-M-yy'
+            });
+            //$("#datepicker2").datepicker();
+            $SCRIPT_ROOT = {
+                {
+                    request.script_root | tojson | safe
+                }
+            };
+
+
+
+            console.log("value changed!" + $SCRIPT_ROOT);
+            //console.log(sl);
+            $("#fundHouse").change(function() {
+
+                var $dropdown = $(this);
+
+                $.getJSON($SCRIPT_ROOT + '/_get_schemes', {
+                    f: $('select[name="fundHouse"]').val(),
+                    //b: $('input[name="b"]').val()
+                }, function(data) {
+                    //$("#result").text(data.result);
+                    //console.log(data.result);
+                    var vals = data.result.split(",");
+                    console.log(parseInt(vals.length));
+                    var $secondChoice = $("#schemeList");
+                    $secondChoice.empty();
+                    for (i = 0; i < parseInt(vals.length); i++) {
+                        $secondChoice.append("<option>" + vals[i].replace('"', '').replace('"',
+                            '').replace('[', '').replace(']', '') + "</option>");
+                    }
+                });
+
+
+
+                //console.log(x.responseText);
+            });
+
+            //loadSchemes();
+            //getNav();
+            $('#navBtn').bind('click', function(e) {
+                e.preventDefault();
+                getNav();
+            });
+
+        });
+
+        function getNav() {
+            $("cssload-thecube").show();
+            //$SCRIPT_ROOT = {{request.script_root | tojson | safe}};
+            //$('#navBtn').bind('click',function() {
+            $.getJSON($SCRIPT_ROOT + '/_show_nav', {
+                fH: $('#fundHouse').val(),
+                sch: $('#schemeList').val(),
+                sd: $('#datepicker1').val(),
+                ed: $('#datepicker2').val()
+                    //b: $('input[name="b"]').val()
+            }, function(data) {
+                //console.log(data.res)
+                x = JSON.parse(data.result)
+                label = [];
+                nav = [];
+                console.log(x[0]["Net Asset Value"]);
+                for (i = 0; i < x.length; i++) {
+                    label[i] = x[i].Date;
+                    nav[i] = x[i]["Net Asset Value"];
+                }
+                console.log(nav);
+                drawGraph(nav, label);
+                $("cssload-thecube").hide();
+            });
+            //});
+
+        }
+
+        function drawGraph(navData, labelData) {
+            var data = {
+                labels: labelData,
+                datasets: [{
+                    label: "Net Asset Value",
+                    borderColor: "rgba(75,192,192,1)",
+                    fill: false,
+                    data: navData,
+                    spanGaps: false,
+                }]
+            };
+            var options = {
+                responsive: true,
+                maintainAspectRatio: true
+            }
+            var ctx = document.getElementById("myChart");
+            var myLineChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: options
+            });
+            myLineChart.update();
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="cssload-thecube">
+            <div class="cssload-cube cssload-c1"></div>
+            <div class="cssload-cube cssload-c2"></div>
+            <div class="cssload-cube cssload-c4"></div>
+            <div class="cssload-cube cssload-c3"></div>
+        </div>
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="#">Home</a>
+                    </li>
+                    <li role="presentation"><a href="#">Sign In</a>
+                    </li>
+                    <li role="presentation"><a href="showSignUp">Sign Up</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Python Flask App</h3>
+        </div>
+
+        <div class="jumbotron">
+            <h1>navTracker App</h1>
+            <p class="lead"></p>
+            <p><a class="btn btn-lg btn-success" href="showSignUp" role="button">Sign up today</a>
+            </p>
+        </div>
+
+        <div class="row marketing">
+            <div class="col-lg-6">
+                <!--<form class="form-inline" method="POST" action="{{ url_for('test') }}">-->
+                <form class="form-inline">
+                    <h4>Select Funds</h4>
+                    <p>Enter the Fund details to obtain the Net Asset Values</p>
+                    <select name="fundHouse" id="fundHouse" width="300px" class="selectpicker form-control">
+					   {% for o in fundHouse['FundHouse'] %}
+					   <option value="{{ o }}">{{ o }}</option>
+					   {% endfor %}
+				    </select>
+                    </br>
+                    <select name="option" id="schemeList" width="300px" class="selectpicker form-control">
+					   <option>Select a Scheme...</option>
+				    </select>
+
+                    </br>
+                    <p>Staring Date: <input type="text" id="datepicker1" class="form-control"></p>
+
+                    <p>Ending Date: <input type="text" id="datepicker2" class="form-control"></p>
+
+                    <!--<button type="submit" class="btn btn-default" id="navBtn">Go</button>-->
+                    <button class="btn btn-default" id="navBtn">Go</button>
+                </form>
+<<<<<<< HEAD
+                <div id="chartWrapper" style="overflow-x:scroll">
+                    <div id="summary"></div>
+                    <canvas id="myChart" width="800" height="400"></canvas>
+=======
+<<<<<<< HEAD
+				<div id="chartWrapper" style="overflow-x:scroll" width="800">
+=======
+				<div id="chartWrapper" style="overflow-x:scroll">
+					<div id="summary"></div>
+>>>>>>> 1058ab048a4d83125647ca14af24a423d3a1dcef
+					<canvas id="myChart" width="800" height="400"></canvas>
+>>>>>>> 0b1242b252b618c0a2336d5b80f40ebbf56b780d
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; Company 2015</p>
+        </footer>
+
+    </div>
+</body>
+
+</html>
